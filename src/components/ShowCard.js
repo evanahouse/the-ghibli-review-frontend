@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class ShowCard extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class ShowCard extends Component {
                     <p>Rotten Tomatoes: {this.props.movie.rt_score}%</p>
                     <p>Description: {this.props.movie.description}</p>
                 </div>
+                <Link to="/new" >Leave A Review</Link>
             </div>
         )
     }

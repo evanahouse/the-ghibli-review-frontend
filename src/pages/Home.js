@@ -20,5 +20,4 @@ render(){
     }
 
 }
-
 export default Home

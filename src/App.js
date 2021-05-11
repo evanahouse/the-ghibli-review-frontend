@@ -55,11 +55,11 @@ class App extends React.Component {
 
         <Switch>
             <Route exact path="/">
-                <Home movie={this.state.movie} movies={this.state.movies} selectMovie={this.selectMovie} show={this.state.show} hide={this.hide}/>
-            </Route>
-            
-            <Route path="/login">
                 <Login />
+            </Route>
+
+            <Route path="/movies">
+                <Home movie={this.state.movie} movies={this.state.movies} selectMovie={this.selectMovie} show={this.state.show} hide={this.hide}/>
             </Route>
             
             <Route path="/register">
