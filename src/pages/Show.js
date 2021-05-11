@@ -5,7 +5,7 @@ export default class Show extends Component {
     render() {
         return (
             <div>
-                <ShowCard movie={this.props.movie}/>
+                <ShowCard movie={this.props.movie} hide={this.props.hide}/> 
             </div>
         )
     }

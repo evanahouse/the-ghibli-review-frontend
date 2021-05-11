@@ -13,13 +13,21 @@ class App extends React.Component {
   state = {
     movies: [],
     movie: {},
+    // users: [],
     show: false
-
   }
 
   componentDidMount = () => {
+    // this.getUsers()
     this.getMovies()
   }
+
+  // getUsers = () => {
+  //   fetch("http://localhost:3000/users")
+  //   .then(res => res.json())
+  //   .then(users => console.log(users))
+  //   //this.setState({ users })
+  // }
 
   getMovies = () => {
     fetch("http://localhost:3000/movies")
@@ -55,7 +63,7 @@ class App extends React.Component {
 
         <Switch>
             <Route exact path="/">
-                <Login />
+                <Login users={this.state.users}/>
             </Route>
 
             <Route path="/movies">
