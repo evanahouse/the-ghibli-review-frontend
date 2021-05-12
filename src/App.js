@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -33,10 +33,43 @@ class App extends React.Component {
     .then(movies => this.setState({ movies }))    
   }
   
-  handleSubmitReview = (review) => {
-    console.log(review)
+
+  submitForm = (review) => {
+      fetch(`http://localhost:3000/reviews`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+    })
+    .then(this.getMovies())
   }
  
+  editSubmit = (review, e) => {
+    e.stopPropagation();
+    fetch(`http://localhost:3000/reviews/${review.id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+    })
+    .then(() => this.getMovies())
+  }
+  
+  deleteClick = (e, review) => {
+    // e.stopPropagation()
+    console.log(review)
+    fetch(`http://localhost:3000/reviews/${review.id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(() => this.getMovies())
+    
+  }
+  
   render () {
     
     return (
@@ -51,9 +84,8 @@ class App extends React.Component {
             </Route>
             
             <Route path="/movies/:id" render={(routerProps)=>{
-              console.log(routerProps)
               let movie = this.state.movies.find(movie => routerProps.match.params.id == movie.id)
-              return <Show movie={movie} handleSubmit={this.handleSubmitReview}/>
+              return <Show movie={movie} submitForm={this.submitForm} editSubmit={this.editSubmit} deleteClick={this.deleteClick}/>
             }}/>
             
             <Route exact path="/register">

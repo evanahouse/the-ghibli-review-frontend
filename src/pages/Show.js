@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ShowCard from '../components/ShowCard'
-import { Route } from 'react-router-dom';
 
 const Show = (props) => {
+    // console.log(props)
     return (
         <div>
-            <ShowCard movie={props.movie} handleSubmit={props.handleSubmit}/>
+            <ShowCard movie={props.movie} submitForm={props.submitForm} editSubmit={props.editSubmit} deleteClick={props.deleteClick}/>
         </div>
     )
 }

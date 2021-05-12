@@ -8,7 +8,7 @@ class Navigation extends React.Component {
                     <div>
                     </div>
                     <div className="nav-logo">
-                        <h1>ghibli gab</h1>
+                        <h2>The Ghibli <span className="gab">Gab</span></h2>
                     </div>
                 
                     <div className="nav-links">
