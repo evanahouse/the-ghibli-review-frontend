@@ -6,15 +6,14 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Show from './pages/Show'
+import Navigation from './components/Navigation'
 
 import './App.css';
 
 class App extends React.Component {
   state = {
     movies: [],
-    movie: {},
-    show: false
-
+    // movie: {},
   }
 
   componentDidMount = () => {
@@ -27,47 +26,41 @@ class App extends React.Component {
     .then(movies => this.setState({ movies }))    
   }
   
-  selectMovie = (e) => {
-    let id = e.target.parentElement.id
-    this.getMovie(id)
-    this.setState({show: true})
+  handleSubmitReview = (review) => {
+    console.log(review)
   }
-
-  hide = (e) => {
-    // e.preventDefault()
-    this.setState({show: false})
-
-  }
-  
-  getMovie = (id) => {
-    fetch(`http://localhost:3000/movies/${id}`)
-    .then(res => res.json())
-    .then(movie => this.setState({ movie }))
-  }
-
+ 
   render () {
     
     return (
       <div>
         <div>
-            Navigation
+            <Navigation />
         </div>
 
         <Switch>
-            <Route exact path="/">
-                <Login />
-            </Route>
-
-            <Route path="/movies">
-                <Home movie={this.state.movie} movies={this.state.movies} selectMovie={this.selectMovie} show={this.state.show} hide={this.hide}/>
+            
+            
+            <Route exact path="/movies">
+                <Home movies={this.state.movies} />
             </Route>
             
-            <Route path="/register">
+            <Route path="/movies/:id" render={(routerProps)=>{
+              console.log(routerProps)
+              let movie = this.state.movies.find(movie => routerProps.match.params.id == movie.id)
+              return <Show movie={movie} handleSubmit={this.handleSubmitReview}/>
+            }}/>
+            
+            <Route exact path="/register">
                 <Register />
             </Route>
             
-            <Route path="/user">
+            <Route exact path="/user">
                 <Profile />
+            </Route>
+
+            <Route exact path="/">
+                <Login />
             </Route>
         </Switch>
     </div>

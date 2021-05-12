@@ -37,3 +37,29 @@
   width: 100%;
 
 }
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: relative;
+  align-items: center;
+  margin: 0px 20px 20px 20px;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.nav-links {
+  display: flex;
+  position: relative;
+  background-color: #E0E0E0;
+  height: 60%;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-right: 20%
+}
+
+.nav-link {
+  text-decoration: none;
+}

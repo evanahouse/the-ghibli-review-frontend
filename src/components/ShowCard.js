@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import FormReview from './FormReview'
 
 export default class ShowCard extends Component {
+    state = {
+        showForm: false
+    }
+
+    handleShowForm = () => {
+        this.setState({showForm: !this.state.showForm})
+    }
+
     render() {
         return (
             <div className="main-show">
-                <button onClick={(e) => this.props.hide(e)}>x</button>
+                <Link to="/movies">x</Link>
                 <div className="left-show">
                     <img src={this.props.movie.image_url}></img>
                     <h2>{this.props.movie.title} ({this.props.movie.release_date}) </h2>
@@ -18,7 +27,14 @@ export default class ShowCard extends Component {
                     <p>Rotten Tomatoes: {this.props.movie.rt_score}%</p>
                     <p>Description: {this.props.movie.description}</p>
                 </div>
-                <Link to="/new" >Leave A Review</Link>
+                <button onClick={() => this.handleShowForm()}>Leave A Review</button>
+                {this.state.showForm === true ? <FormReview movieId={this.props.movie.id} handleShowForm={this.handleShowForm} handleSubmit={this.props.handleSubmit}/> : null}
+                
+                {/* <div>
+                    {this.props.movie.reviews.forEach(review => {
+                        return <div><p>review.title</p></div>
+                    })}
+                </div> */}
             </div>
         )
     }
