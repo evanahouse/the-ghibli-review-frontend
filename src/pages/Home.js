@@ -9,6 +9,7 @@ render(){
         return (
             <div className="main-container">
                 <h1>All Movies</h1>
+
                 <div className="movie-container">
                     {this.props.movies.map(movie => {
                         return <MovieCard key={movie.id} movie={movie} selectMovie={this.props.selectMovie}  />

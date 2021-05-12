@@ -12,13 +12,20 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    movies: [],
-    // movie: {},
+    movies: []
   }
 
   componentDidMount = () => {
+    // this.getUsers()
     this.getMovies()
   }
+
+  // getUsers = () => {
+  //   fetch("http://localhost:3000/users")
+  //   .then(res => res.json())
+  //   .then(users => console.log(users))
+  //   //this.setState({ users })
+  // }
 
   getMovies = () => {
     fetch("http://localhost:3000/movies")
@@ -39,8 +46,6 @@ class App extends React.Component {
         </div>
 
         <Switch>
-            
-            
             <Route exact path="/movies">
                 <Home movies={this.state.movies} />
             </Route>
