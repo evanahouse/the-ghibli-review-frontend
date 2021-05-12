@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import ShowCard from '../components/ShowCard'
+import { Route } from 'react-router-dom';
 
-export default class Show extends Component {
-    render() {
-        return (
-            <div>
-                <ShowCard movie={this.props.movie} hide={this.props.hide}/> 
-            </div>
-        )
-    }
+const Show = (props) => {
+    return (
+        <div>
+            <ShowCard movie={props.movie} handleSubmit={props.handleSubmit}/>
+        </div>
+    )
 }
+
+export default Show;
+
