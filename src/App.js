@@ -12,7 +12,9 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    movies: []
+    movies: [],
+    user: {},
+    loggedIn: false
   }
 
   componentDidMount = () => {
@@ -34,7 +36,8 @@ class App extends React.Component {
   }
   
 
-  submitForm = (review) => {
+  submitForm = (review, e) => {
+      e.preventDefault()
       fetch(`http://localhost:3000/reviews`, {
         method: 'POST',
         headers: {
@@ -42,7 +45,7 @@ class App extends React.Component {
         },
         body: JSON.stringify(review)
     })
-    .then(this.getMovies())
+    .then(() => this.getMovies())
   }
  
   editSubmit = (review, e) => {
@@ -66,10 +69,65 @@ class App extends React.Component {
         "Content-Type": "application/json"
       }
     })
-  
+  .then(() => this.getMovies())
+  }
 
-    .then(() => this.getMovies())
-    
+  registerUser = (submission) => {
+    let user = {
+      username: submission.username,
+      password: submission.password
+    }
+    fetch(`http://localhost:3000/users`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(userResp => {
+      let createdUser = {
+        username: userResp.username,
+        id: userResp.id
+      }
+      this.setState({
+        user: createdUser,
+        loggedIn: true
+      })
+    })
+  }
+  
+  loginUser = (submission) => {
+    fetch(`http://localhost:3000/auth`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(submission)
+    })
+    .then(res => res.json())
+    .then(userResp => {
+        if(userResp.error){
+            alert(userResp.error)
+        }
+        else {
+        let createdUser = {
+            username: userResp.username,
+            id: userResp.id
+        }
+        this.setState({
+            user: createdUser,
+            loggedIn: true
+        })
+        }
+    })
+  }
+
+  handleLogout = (e) => {
+    this.setState({
+        loggedIn: false,
+        user: {}
+    })
   }
   
   render () {
@@ -77,7 +135,7 @@ class App extends React.Component {
     return (
       <div>
         <div>
-            <Navigation />
+            <Navigation user={this.state.user} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
         </div>
 
         <Switch>
@@ -87,11 +145,11 @@ class App extends React.Component {
             
             <Route path="/movies/:id" render={(routerProps)=>{
               let movie = this.state.movies.find(movie => routerProps.match.params.id == movie.id)
-              return <Show movie={movie} submitForm={this.submitForm} editSubmit={this.editSubmit} deleteClick={this.deleteClick}/>
+              return <Show movie={movie} submitForm={this.submitForm} editSubmit={this.editSubmit} deleteClick={this.deleteClick} loggedIn={this.state.loggedIn} user={this.state.user}/>
             }}/>
             
             <Route exact path="/register">
-                <Register />
+                {this.state.loggedIn ? <Redirect to="/movies" /> : <Register registerUser={this.registerUser}/>}
             </Route>
             
             <Route exact path="/user">
@@ -99,7 +157,7 @@ class App extends React.Component {
             </Route>
 
             <Route exact path="/">
-                <Login />
+                {this.state.loggedIn ? <Redirect to="/movies" /> : <Login loginUser={this.loginUser}/> }
             </Route>
         </Switch>
     </div>
