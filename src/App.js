@@ -66,6 +66,8 @@ class App extends React.Component {
         "Content-Type": "application/json"
       }
     })
+  
+
     .then(() => this.getMovies())
     
   }

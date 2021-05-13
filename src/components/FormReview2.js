@@ -14,7 +14,7 @@ const FormReview2 = ({movie, submitForm, handleShowForm}) => {
             movie_id: movie.id,
             user_id: 9
         }
-    submitForm(reviewSubmission)
+    submitForm(reviewSubmission, e)
     handleShowForm()
 }
   
