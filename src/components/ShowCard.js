@@ -45,7 +45,7 @@ export default class ShowCard extends Component {
                     <p>Description: {this.props.movie.description}</p>
                 </div>
                 <div hidden={!this.state.showForm} className="review-form">
-                    {this.state.showForm === true ? <FormReview2 className="review-pop-up" movie={this.props.movie} handleShowForm={this.handleShowForm} submitForm={this.props.submitForm}/> : null}
+                    {this.state.showForm === true ? <FormReview2 className="review-pop-up" movie={this.props.movie} user={this.props.user} handleShowForm={this.handleShowForm} submitForm={this.props.submitForm}/> : null}
                 </div>
                 <div hidden={!this.state.showEditForm} className="review-form">
                     {this.state.showEditForm === true ? <FormEditReview className="review-pop-up" review={this.state.review} movie={this.props.movie} hideEditForm={this.hideEditForm} editSubmit={this.props.editSubmit}/> : null}
@@ -57,7 +57,7 @@ export default class ShowCard extends Component {
                 </div> 
                 <div className="reviews-container">
                     <h1>Reviews</h1>
-                    {this.props.movie.reviews.map(review => <ReviewCard key={review.id} review={review} editClick={this.editClick} deleteClick={this.props.deleteClick}/>)}
+                    {this.props.movie.reviews.map(review => <ReviewCard key={review.id} review={review} editClick={this.editClick} deleteClick={this.props.deleteClick} loggedIn={this.props.loggedIn} user={this.props.user}/>)}
                 </div>
             </div>
         </div>

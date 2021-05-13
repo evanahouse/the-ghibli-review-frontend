@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 
-const FormReview2 = ({movie, submitForm, handleShowForm}) => {
+const FormReview2 = ({movie, submitForm, handleShowForm, user}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [rating, setRating] = useState("");
 
    const handleSubmit = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
         let reviewSubmission = {
             title: title,
             content: content,
             score: parseInt(rating),
             movie_id: movie.id,
-            user_id: 9
+            user_id: user.id
         }
-    submitForm(reviewSubmission)
+    submitForm(reviewSubmission, e)
     handleShowForm()
 }
   

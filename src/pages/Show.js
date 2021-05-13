@@ -5,7 +5,7 @@ const Show = (props) => {
     // console.log(props)
     return (
         <div>
-            <ShowCard movie={props.movie} submitForm={props.submitForm} editSubmit={props.editSubmit} deleteClick={props.deleteClick}/>
+            <ShowCard movie={props.movie} submitForm={props.submitForm} editSubmit={props.editSubmit} deleteClick={props.deleteClick} loggedIn={props.loggedIn} user={props.user}/>
         </div>
     )
 }

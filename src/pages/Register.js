@@ -5,7 +5,7 @@ export default class Register extends Component {
     render() {
         return (
             <div>
-                <FormRegister />
+                <FormRegister registerUser={this.props.registerUser}/>
             </div>
         )
     }
