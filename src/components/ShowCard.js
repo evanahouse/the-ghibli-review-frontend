@@ -57,7 +57,7 @@ export default class ShowCard extends Component {
                 </div> 
                 <div className="reviews-container">
                     <h1>Reviews</h1>
-                    {this.props.movie.reviews.map(review => <ReviewCard key={review.id} review={review} editClick={this.editClick} deleteClick={this.props.deleteClick} loggedIn={this.props.loggedIn} user={this.props.user}/>)}
+                    {this.props.movie.reviews.map(review => <ReviewCard key={review.id} review={review} editClick={this.editClick} deleteClick={this.props.deleteClick} loggedIn={this.props.loggedIn} user={this.props.user} users={this.props.users}/>)}
                 </div>
             </div>
         </div>

@@ -31,9 +31,9 @@ const FormRegister = ({registerUser}) => {
         if(!registerSubmission.password) {
             errors.password = 'Password is required'
         } 
-        // else if (password.length < 1) {
-        //     errors.password = "Password needs to be 6 characters or more"
-        // }
+        else if (password.length < 6) {
+            errors.password = "Password needs to be 6 characters or more"
+        }
 
         //Confirm Password
         if(!registerSubmission.password2) {
@@ -57,43 +57,39 @@ const FormRegister = ({registerUser}) => {
     
         return (
            <div className="register-container">
-                <h1>Register:</h1>
-                <div className="form-container">
-                    <form onSubmit={handleRegister}> 
-                    <label htmlFor="username"><br/>
-                        Username: 
-                        <br/><input
+                    <div><h3>Register:</h3>
+                    <form className="validate-form" onSubmit={handleRegister}> 
+                    <label htmlFor="username">Username: {errors.username && <span className="error-message">{errors.username}</span>}</label>
+                        <input
                         type="text"
                         name="username"
                         placeholder="Enter Username"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
-                        />{errors.username && <p>{errors.username}</p>}<br/>
-                    </label><br/>
-                    <label htmlFor="password">
-                        Password:
+                        />
+                    
+                    <label htmlFor="password">Password: {errors.password && <span className="error-message">{errors.password}</span>}</label>
                         <input
                         type="password"
                         name="password"
                         placeholder="Enter Password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        />{errors.password && <p>{errors.password}</p>}<br/><br/>
-                    </label>
-                    <label htmlFor="password2">
-                        Confirm Password:
-                        <br/><input
+                        />
+                    
+                    <label htmlFor="password2">Confirm Password: {errors.password2 && <span className="error-message">{errors.password2}</span>}</label>
+                        <input
                         type="password"
                         name="password2"
-                        placeholder="Confirm Password Here"
+                        placeholder="Confirm Password"
                         value={password2}
                         onChange={(event) => setPassword2(event.target.value)}
                         />
-                    </label>{errors.password2 && <p>{errors.password2}</p>}<br/><br/>
+                    
                     <p className="forgot-password text-right">
                     Already registered <Link to="/">sign in?</Link>
                     </p>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Register" />
                     </form>
                 </div>
             </div>

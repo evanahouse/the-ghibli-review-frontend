@@ -4,7 +4,7 @@ import FormLogin from '../components/FormLogin'
 export default class Login extends Component {
     render() {
         return (
-            <div>
+            <div className="home">
                 <FormLogin loginUser={this.props.loginUser}/>
             </div>
         )

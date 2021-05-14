@@ -1,12 +1,16 @@
 import React from 'react'
 
-const ReviewCard = ({review, editClick, deleteClick, user, loggedIn}) => {
+const ReviewCard = ({review, editClick, deleteClick, user, users, loggedIn}) => {
     
+    const findUser = (id) => {
+        let user = users.find(user => user.id == id)
+        return user.username
+    }
     
     return (
         <div className="review-card">
             <div className="review-left">
-                <p>{review.user_id}</p>
+                <p>{findUser(review.user_id)}</p>
                 { user.id == review.user_id ? 
                 <div>
                     <button onClick={(e) => editClick(e, review)}>Edit</button>

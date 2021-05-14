@@ -44,34 +44,29 @@ const FormRegister = ({loginUser}) => {
     
     
         return (
-           <div className="login-container">
-                <h1>Login:</h1>
-                <div className="login-form">
-                    <form onSubmit={handleLogin}> 
-                    <label htmlFor="username"><br/>
-                        Username: 
-                        <br/><input
+           <div className="register-container">
+                <div><h3>Login:</h3>
+                    <form className="validate-form" onSubmit={handleLogin}> 
+                    <label htmlFor="username">Username: {errors.username && <span className="error-message">{errors.username}</span>}</label>
+                        <input
                         type="text"
                         name="username"
                         placeholder="Enter Username"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
-                        />{errors.username && <p>{errors.username}</p>}<br/>
-                    </label><br/>
-                    <label htmlFor="password">
-                        Password:
+                        />
+                    <label htmlFor="password">Password: {errors.password && <span className="error-message">{errors.password}</span>}</label>
                         <input
                         type="password"
                         name="password"
                         placeholder="Enter Password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        />{errors.password && <p>{errors.password}</p>}<br/><br/>
-                    </label>
+                        />
                     <p className="forgot-password text-right">
                     No account? <Link to="/register">Register Here</Link>
                     </p>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Login" />
                     </form>
                 </div>
             </div>

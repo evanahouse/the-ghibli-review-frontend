@@ -14,12 +14,14 @@ class App extends React.Component {
   state = {
     movies: [],
     user: {},
-    loggedIn: false
+    loggedIn: false,
+    users: []
   }
 
   componentDidMount = () => {
     // this.getUsers()
     this.getMovies()
+    this.getUsers()
   }
 
   // getUsers = () => {
@@ -33,6 +35,12 @@ class App extends React.Component {
     fetch("http://localhost:3000/movies")
     .then(res => res.json())
     .then(movies => this.setState({ movies }))    
+  }
+  
+  getUsers = () => {
+    fetch("http://localhost:3000/users")
+    .then(res => res.json())
+    .then(users => this.setState({ users }))    
   }
   
 
@@ -86,6 +94,10 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(userResp => {
+      if(userResp.error){
+        alert(userResp.error)
+      }
+      else{
       let createdUser = {
         username: userResp.username,
         id: userResp.id
@@ -93,8 +105,9 @@ class App extends React.Component {
       this.setState({
         user: createdUser,
         loggedIn: true
-      })
+      })}
     })
+    .then(() => this.getUsers())
   }
   
   loginUser = (submission) => {
@@ -145,7 +158,7 @@ class App extends React.Component {
             
             <Route path="/movies/:id" render={(routerProps)=>{
               let movie = this.state.movies.find(movie => routerProps.match.params.id == movie.id)
-              return <Show movie={movie} submitForm={this.submitForm} editSubmit={this.editSubmit} deleteClick={this.deleteClick} loggedIn={this.state.loggedIn} user={this.state.user}/>
+              return <Show movie={movie} submitForm={this.submitForm} editSubmit={this.editSubmit} deleteClick={this.deleteClick} loggedIn={this.state.loggedIn} user={this.state.user} users={this.state.users}/>
             }}/>
             
             <Route exact path="/register">
